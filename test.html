@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Page with Styled Sidebar</title>
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2c3e50;
+      --text-color: #333;
+      --bg-color: #f4f4f4;
+      --sidebar-width: 300px;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .page-container {
+      display: flex;
+    }
+
+    #sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      background-color: var(--secondary-color);
+      color: white;
+      overflow-y: auto;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .sidebar-header {
+      padding: 20px;
+      background-color: var(--primary-color);
+      text-align: center;
+    }
+
+    .sidebar-content {
+      padding: 20px;
+    }
+
+    .sidebar-item {
+      margin-bottom: 30px;
+    }
+
+    .sidebar-item h3 {
+      margin-top: 0;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 10px;
+    }
+
+    .theme-switcher {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked+.slider {
+      background-color: var(--primary-color);
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(26px);
+    }
+
+    .sidebar-list {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar-list li {
+      margin-bottom: 10px;
+    }
+
+    .sidebar-list a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+      display: block;
+      padding: 5px 0;
+    }
+
+    .sidebar-list a:hover {
+      color: var(--primary-color);
+    }
+
+    .main-content {
+      flex-grow: 1;
+      padding: 20px;
+      transition: margin-left 0.3s ease-in-out;
+    }
+
+    header {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .hamburger svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    @media (max-width: 768px) {
+      #sidebar {
+        position: fixed;
+        left: -var(--sidebar-width);
+        top: 0;
+        z-index: 1000;
+      }
+
+      #sidebar.open {
+        transform: translateX(var(--sidebar-width));
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-container">
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <h2>Menu</h2>
+      </div>
+      <div class="sidebar-content">
+        <div class="sidebar-item">
+          <h3>Theme Switcher</h3>
+          <div class="theme-switcher">
+            <span>Dark Mode</span>
+            <label class="switch">
+              <input type="checkbox" id="theme-toggle">
+              <span class="slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="sidebar-item">
+          <h3>FAQ</h3>
+          <ul class="sidebar-list">
+            <li><a href="#faq1">How to use our product?</a></li>
+            <li><a href="#faq2">Pricing information</a></li>
+            <li><a href="#faq3">Shipping details</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-item">
+          <h3>Products</h3>
+          <ul class="sidebar-list">
+            <li><a href="#product1">Product A</a></li>
+            <li><a href="#product2">Product B</a></li>
+            <li><a href="#product3">Product C</a></li>
+          </ul>
+        </div>
+        <div class="sidebar-item">
+          <h3>About Us</h3>
+          <p>Learn about our company's mission and values.</p>
+        </div>
+        <div class="sidebar-item">
+          <h3>Contact</h3>
+          <p>Get in touch with our support team.</p>
+        </div>
+        <div class="sidebar-item">
+          <h3>Settings</h3>
+          <ul class="sidebar-list">
+            <li><a href="#account">Account Settings</a></li>
+            <li><a href="#notifications">Notifications</a></li>
+            <li><a href="#privacy">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header>
+        <h1>Your Website Name</h1>
+        <button class="hamburger" id="menu-toggle">
+          <svg viewBox="0 0 100 80" width="40" height="40">
+            <rect width="100" height="20"></rect>
+            <rect y="30" width="100" height="20"></rect>
+            <rect y="60" width="100" height="20"></rect>
+          </svg>
+        </button>
+      </header>
+      <section>
+        <h2>Welcome to Our Website</h2>
+        <p>This is the main content area where you can display your primary information, products, or any other relevant
+          content.</p>
+        <p>The sidebar on the left (or accessible via the hamburger menu on mobile) contains navigation links, a theme
+          switcher, and other important sections of your site.</p>
+      </section>
+      <!-- Add more sections or content as needed -->
+    </main>
+  </div>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const themeToggle = document.getElementById('theme-toggle');
+
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+
+    themeToggle.addEventListener('change', () => {
+      document.body.classList.toggle('dark-mode');
+      if (document.body.classList.contains('dark-mode')) {
+        document.documentElement.style.setProperty('--bg-color', '#2c3e50');
+        document.documentElement.style.setProperty('--text-color', '#ecf0f1');
+      } else {
+        document.documentElement.style.setProperty('--bg-color', '#f4f4f4');
+        document.documentElement.style.setProperty('--text-color', '#333');
+      }
+    });
+  </script>
+</body>
+
+</html>
